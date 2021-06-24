@@ -4,7 +4,7 @@
       <router-link to="/incomplete-task">Incomplete task</router-link>
       <router-link to="/task">Complete task</router-link>
     </div>
-    <a @click="scrollToTop"
+    <a href="base#" 
      
       class=" focus:outline-none fixed flex justify-center items-center bottom-5 sm:left-80 left-72 sm:bottom-0 h-16 w-16 px-4 rounded-full bg-yellow-500 text-white text-lg"
     >

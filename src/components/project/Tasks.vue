@@ -1,5 +1,5 @@
 <template>
-  <div class="task mx-auto max-w-7xl sm:px-0 h-72 bg-purple-900">
+  <div id="top" class="task mx-auto max-w-7xl sm:px-0 h-72 bg-purple-900">
     <div class="pb-10">
       <Header title="My Task" />
     </div>
