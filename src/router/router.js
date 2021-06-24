@@ -19,6 +19,7 @@ const routes = [{ path: '/about', component: About, name: 'About' },
 {path: '/incomplete-task', component:IncompleteTask, name:'IncompletTask'},
 {path: '/complete-task', component:completeTask, name:'completTask'},
 ];
+
 const router = createRouter({
     history: createWebHistory(),
     routes

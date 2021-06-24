@@ -1,14 +1,14 @@
 <template>
   <div class="flex space-x-6">
     <button @click="addTask"
-      class="text-center text-white py-7 px-4 rounded-md bg-purple-400 focus:outline-none"
+      class="text-center text-white py-7 px-8 rounded-md bg-purple-400 focus:outline-none"
     >
-      Add Task
+     <i class="fas fa-business-time"></i>
     </button>
     <button @click="addTask"
-      class="text-center text-white py-7 px-4 rounded-md bg-purple-400 focus:outline-none"
+      class="text-center text-white py-7 px-8 rounded-md bg-purple-400 focus:outline-none"
     >
-     Profile
+    <i class="fas fa-user"></i>
     </button>
   </div>
 </template>

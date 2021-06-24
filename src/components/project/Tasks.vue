@@ -1,20 +1,20 @@
 <template>
-  <div class="task mx-auto max-w-7xl sm:px-0 h-72 bg-purple-900 relative">
+  <div class="task mx-auto max-w-7xl sm:px-0 h-72 bg-purple-900">
     <div class="pb-10">
       <Header title="My Task" />
     </div>
     <div>
       <TaskNote @add-task="addTask" />
     </div>
-    <div class="bg-white rounded-t-3xl flex flex-col space-y-10">
+    <div class="bg-white rounded-t-3xl flex flex-col space-y-10 px-2">
       <div class="flex flex-col space-y-8 pt-20 pb-2">
         <div
           v-for="task in tasks"
           :key="task.id"
-          class="flex justify-between items-center px-3"
+          class="flex justify-between items-center"
           :class="[task.completeTask ? 'complete' : '']"
         >
-          <div class="flex space-x-3 items-center">
+          <div class="flex space-x-4 items-center">
             <div
               class="h-10 w-10 flex justify-center items-center rounded-full bg-purple-900"
               :class="[task.completeTask ? 'checked' : '']"
@@ -28,11 +28,15 @@
                 </button>
               </div>
             </div>
-            <h1 class="text-left text-md font-bold">
+            <h1
+              class="text-left text-md font-bold"
+              :class="[task.completeTask ? 'complete' : '']"
+            >
               {{ task.text }}
             </h1>
           </div>
-          <div>
+
+          <div class="" :class="[task.completeTask ? 'complete' : '']">
             <p class="text-left font-bold">{{ task.day }}</p>
           </div>
         </div>
@@ -114,14 +118,22 @@ export default {
   //   mounted(){
   //     setTimeout(() => this.tasks.splice(1, 1), 5000);
   //   },
+  computed:{
+    // formatDate(){
+
+    // }
+  },
   methods: {
     addTask(task) {
       let date = new Date();
-      let month = date.getMonth() + 1;
+      // let month = date.getMonth()+ 1;
+      let month= date.toLocaleString('default', { month: 'long' });
       let year = date.getFullYear();
       let day = date.getDate();
 
-      let humanReadableDate = `${year}-${month}-${day}`;
+      let humanReadableDate = `${month} ${day}, ${year}`;
+    
+      
       console.log(humanReadableDate);
 
       this.tasks = [
@@ -156,11 +168,11 @@ export default {
 <style scoped>
 .task .checked {
   background-color: orange;
-  text-decoration: line-through solid orange;
+  /* text-decoration: line-through solid orange; */
 }
 
 .task .complete {
-  text-decoration: line-through;
+  text-decoration-line: line-through;
   text-decoration-color: orange;
   text-decoration-thickness: 2px;
   width: auto;
