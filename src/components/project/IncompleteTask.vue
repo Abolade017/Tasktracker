@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mx-auto max-w-7xl sm:px-0 h-72 bg-purple-900 relative">
+    <div class="mx-auto max-w-7xl  h-72 bg-purple-900 relative">
       <div class="pb-10">
         <Header title="My Task" />
       </div>

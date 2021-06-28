@@ -10,14 +10,15 @@ import completeTask from '../components/project/Tasks.vue';
 
 
 const routes = [{ path: '/about', component: About, name: 'About' },
+{ path: '/', component: Base, name: 'Base' },
 { path: '/home', component: Home, name: 'Home' },
 { path: '/jobs', component: Jobs, name: 'Jobs' },
-{ path: '/jobs/:id', component: JobDetails, name: 'JobDetails', props:true },
-{ path: '/all-jobs', redirect:'/jobs' },
-{path: '/:catchAll(.*)',component:NotFound, name:'notFound'},
-{path: '/base',component:Base, name:'Base'},
-{path: '/incomplete-task', component:IncompleteTask, name:'IncompletTask'},
-{path: '/complete-task', component:completeTask, name:'completTask'},
+{ path: '/jobs/:id', component: JobDetails, name: 'JobDetails', props: true },
+{ path: '/all-jobs', redirect: '/jobs' },
+{ path: '/:catchAll(.*)', component: NotFound, name: 'notFound' },
+{ path: '/base', component: Base, name: 'Base' },
+{ path: '/incomplete-task', component: IncompleteTask, name: 'IncompletTask' },
+{ path: '/complete-task', component: completeTask, name: 'completTask' },
 ];
 
 const router = createRouter({
