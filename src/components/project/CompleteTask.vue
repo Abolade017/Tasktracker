@@ -1,15 +1,15 @@
 <template>
-  <div class=" bg-white rounded-t-3xl shadow-lg bottom-10 z-20">
-    <div class="flex flex-col space-y-8 px-3 pt-10 pb-2">
-      <span class="text-center font-bold text-blue-900 text-xl">Incomplete Task</span>
+  
+    <div class="flex flex-col space-y-8 px-3 pt-20 pb-2">
+        <span class="text-center  font-bold text-yellow-500 text-xl">Complete Task</span>
       <div
         v-for="task in tasks"
         :key="task.id"
         class=""
         :class="[task.completeTask ? 'complete' : '']"
       >
-        <div class="flex justify-between items-center">
-          <div class="flex space-x-4 items-center">
+        <div class="relative flex justify-between items-center">
+          <div class="  flex space-x-4 items-center">
             <div class="flex justify-center items-center">
               <button
                 @click="taskChecked(task)"
@@ -23,13 +23,15 @@
               {{ task.text }}
             </h1>
           </div>
+          <div
+            v-if="task.completeTask"
+            class="absolute border-b-2 border-yellow-400  bottom-5 w-72 sm:w-full h-2 left-14 sm:left-12 "
+          ></div>
           <p class="text-left font-bold">{{ task.day }}</p>
         </div>
       </div>
+      
     </div>
-    <slot></slot>
-    <slot name="scroll"></slot>
-  </div>
 </template>
 <script>
 export default {
@@ -41,7 +43,7 @@ export default {
   },
   methods: {
     taskChecked(task) {
-      let taskData = { ...task, completeTask: true };
+      let taskData = { ...task, completeTask: false };
 
       this.$emit("checked", taskData);
     }

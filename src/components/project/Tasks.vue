@@ -1,162 +1,121 @@
 <template>
-  <div id="top" class="task mx-auto max-w-7xl sm:px-0 h-72 bg-purple-900 ">
-    <div class="pb-10">
+  <div class=" task mx-auto max-w-4xl sm:px-0 h-72 bg-purple-900  ">
+      <div class="pb-10">
       <Header title="My Task" />
     </div>
     <div>
       <TaskNote @add-task="addTask" />
     </div>
-    <div class="bg-white rounded-t-3xl">
-      <div class="flex flex-col space-y-8 px-3 pt-20 pb-2">
+    <incomplete-task :tasks="incompleteTask" @checked="handleChecked">
+      <CompleteTask  :tasks="completeTask" @checked="handleChecked" />
+       <a
+        href="#top"
+        class=" focus:outline-none fixed flex justify-center items-center bottom-10 sm:left-80 left-72 sm:bottom-0 h-16 w-16 px-4 rounded-full bg-yellow-500 text-white text-lg"
+      >
         <div
-          v-for="task in tasks"
-          :key="task.id"
-          class=""
-          :class="[task.completeTask ? 'complete' : '']"
+          class="flex justify-center items-center h-8 w-8 text-3xl bg-yellow-500"
         >
-          <div class="relative flex justify-between items-center">
-            <div class="  flex space-x-4 items-center">
-              <div class="flex justify-center items-center">
-                <button
-                  @click="taskChecked(task)"
-                  :class="[task.completeTask ? 'checked' : '']"
-                  class="focus:outline-none text-white h-10 w-10 flex justify-center items-center rounded-full bg-purple-900"
-                >
-                  <i class="fas fa-check h-4 w-4"></i>
-                </button>
-              </div>
-              <h1 class="text-left text-md font-bold " >
-                  {{ task.text }}
-                </h1>
-               
-            </div>
-             <div
-                v-if="task.completeTask"
-                  class="absolute border-b-2 border-yellow-400  bottom-5 w-72 sm:w-full h-2 left-14 sm:left-12 "
-                ></div>
-             <p class="text-left font-bold" >{{ task.day }}</p>
-          </div>
+          +
         </div>
-      </div>
-      <div>
-        <Task />
-      </div>
-    </div>
+      </a>
+    </incomplete-task>
   </div>
+  
 </template>
 <script>
-import Header from "../project/Header";
-import Task from "./Task.vue";
+ import Header from "./Header";
+ import IncompleteTask from "./IncompleteTask.vue";
+import CompleteTask from "./CompleteTask.vue";
 import TaskNote from "./TaskNote";
 export default {
-  components: { Task, Header, TaskNote },
+  components: {  Header,TaskNote, IncompleteTask, CompleteTask },
   data() {
     return {
+      IncompleteTask: false,
       tasks: [
         {
           id: 1,
           text: "Doctors appointment",
           day: "March 1st, 2021",
-          completeTask: false,
-          ckecked: false
+          completeTask: false
         },
         {
           id: 2,
           text: "Doctors appointment",
           day: "March 2nd, 2021",
-          completeTask: false,
-          ckecked: false
+          completeTask: false
         },
         {
           id: 3,
           text: "Doctors appointment",
           day: "March 3rd, 2021",
-          completeTask: false,
-          checked: false
+          completeTask: false
         },
         {
           id: Math.random(),
           text: "Doctors appointment",
           day: "March 3rd, 2021",
-          completeTask: false,
-          checked: false
+          completeTask: false
         },
         {
           id: Math.random(),
           text: "Doctors appointment",
           day: "March 3rd, 2021",
-          completeTask: false,
-          checked: false
+          completeTask: true
         },
         {
           id: Math.random(),
           text: "Doctors appointment",
           day: "March 3rd, 2021",
-          completeTask: false,
-          checked: false
+          completeTask: false
         },
         {
           id: Math.random(),
           text: "Doctors appointment",
           day: "March 3rd, 2021",
-          completeTask: false,
-          ckecked: false
+          completeTask: false
         },
         {
           id: Math.random(),
           text: "Doctors appointment",
           day: "March 3rd, 2021",
-          completeTask: false,
-          ckecked: false
+          completeTask: false
         }
       ]
     };
   },
-  //   mounted(){
-  //     setTimeout(() => this.tasks.splice(1, 1), 5000);
-  //   },
   computed: {
-    // formatDate(){
-    // }
+    incompleteTask() {
+      return this.tasks.filter(task => !task.completeTask);
+    },
+    completeTask() {
+      return this.tasks.filter(task => task.completeTask);
+    }
   },
   methods: {
+    handleChecked($event) {
+      let id = $event.id;
+      let index = this.tasks.findIndex(task => task.id == id);
+      this.tasks[index] = $event;
+    },
     addTask(task) {
       let date = new Date();
-      // let month = date.getMonth()+ 1;
       let month = date.toLocaleString("default", { month: "long" });
       let year = date.getFullYear();
       let day = date.getDate();
 
       let humanReadableDate = `${month} ${day}, ${year}`;
 
-      console.log(humanReadableDate);
-
-      this.tasks = [
-        ...this.tasks,
-        {
-          id: task.id,
-          text: task.enteredValue,
-          day: humanReadableDate,
-          completeTask: false,
-          checked: false
-        }
-      ];
-      console.log(this.tasks);
+      return this.tasks.unshift({
+        id: task.id,
+        text: task.enteredValue,
+        day: humanReadableDate,
+        completeTask: false
+      });
     },
-    taskChecked(task) {
-      task.completeTask = !task.completeTask;
-
-      // this.tasks = this.tasks.map((task) =>
-      //   task.id === id ? { ...task, checked: !task.checked } : task
-      // );
-      // console.log(true);
-      // return this.$router.push({ name: "completeTask" });
+     scrollToTop() {
+      window.scrollTo(0, 0);
     }
-    // taskComplete(id) {
-    //   this.tasks = this.tasks.map((task) =>
-    //     task.id === id ? { ...task, completeTask: !task.completeTask } : task
-    //   );
-    // },
   }
 };
 </script>

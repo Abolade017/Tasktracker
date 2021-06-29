@@ -5,7 +5,7 @@ import Jobs from '../components/Jobs/Jobs.vue';
 import JobDetails from '../components/Jobs/JobDetails.vue';
 import NotFound from '../components/Jobs/NotFound.vue';
 import Base from '../components/project/Tasks.vue';
-import IncompleteTask from '../components/project/Tasks.vue';
+import IncompleteTask from '../components/project/IncompleteTask.vue';
 import completeTask from '../components/project/Tasks.vue';
 
 
