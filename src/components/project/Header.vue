@@ -6,6 +6,7 @@
       </div>
     </header>
  
+ 
 </template>
 <script>
 import Button from './Button';

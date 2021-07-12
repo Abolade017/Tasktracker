@@ -1,5 +1,5 @@
 <template>
-  <div class=" bg-white rounded-t-3xl shadow-lg bottom-10 z-20">
+  <div class="bg-white rounded-t-3xl shadow-lg ">
     <div class="flex flex-col space-y-8 px-3 pt-10 pb-2">
       <span class="text-center font-bold text-blue-900 text-xl">Incomplete Task</span>
       <div
@@ -9,8 +9,8 @@
         :class="[task.completeTask ? 'complete' : '']"
       >
         <div class="flex justify-between items-center">
-          <div class="flex space-x-4 items-center">
-            <div class="flex justify-center items-center">
+          <div class="flex space-x-2 items-center ">
+            <div class="flex justify-center items-center ">
               <button
                 @click="taskChecked(task)"
                 :class="[task.completeTask ? 'checked' : '']"
@@ -19,16 +19,20 @@
                 <i class="fas fa-check h-4 w-4"></i>
               </button>
             </div>
-            <h1 class="text-left text-md font-bold ">
+            <div class="w-48">
+            <h1 class="text-left text-md font-bold sm:break-normal break-words ">
               {{ task.text }}
             </h1>
+            </div>
           </div>
           <p class="text-left font-bold">{{ task.day }}</p>
         </div>
       </div>
     </div>
     <slot></slot>
+    <div class="">
     <slot name="scroll"></slot>
+    </div>
   </div>
 </template>
 <script>

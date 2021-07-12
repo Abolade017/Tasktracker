@@ -1,95 +1,60 @@
 <template>
-  <div class=" task mx-auto max-w-4xl sm:px-0 h-72 bg-purple-900  ">
-      <div class="pb-10">
+  <div class=" task h-72 bg-purple-900 mx-auto max-w-5xl">
+    <div class="pb-10">
       <Header title="My Task" />
     </div>
     <div>
       <TaskNote @add-task="addTask" />
     </div>
-    <incomplete-task :tasks="incompleteTask" @checked="handleChecked">
-      <CompleteTask  :tasks="completeTask" @checked="handleChecked" />
-       <a
-        href="#top"
-        class=" focus:outline-none fixed flex justify-center items-center bottom-10 sm:left-80 left-72 sm:bottom-0 h-16 w-16 px-4 rounded-full bg-yellow-500 text-white text-lg"
-      >
-        <div
-          class="flex justify-center items-center h-8 w-8 text-3xl bg-yellow-500"
+    <div>
+      <incomplete-task :tasks="incompleteTask" @checked="handleChecked">
+        <CompleteTask :tasks="completedTask" @checked="handleChecked" />
+        <a
+          href="#top"
+          class="focus:outline-none fixed flex justify-center items-center bottom-10 left-72 sm:left-3/4  sm:bottom-10 h-16 w-16 px-4 rounded-full bg-yellow-500 text-white text-lg"
         >
-          +
-        </div>
-      </a>
-    </incomplete-task>
+          <div
+            class="flex justify-center items-center h-8 w-8 text-3xl bg-yellow-500"
+          >
+            +
+          </div>
+        </a>
+      </incomplete-task>
+    </div>
   </div>
-  
 </template>
 <script>
- import Header from "./Header";
- import IncompleteTask from "./IncompleteTask.vue";
+const STORAGE_KEY = "task_storage";
+import Header from "./Header";
+import IncompleteTask from "./IncompleteTask.vue";
 import CompleteTask from "./CompleteTask.vue";
 import TaskNote from "./TaskNote";
 export default {
-  components: {  Header,TaskNote, IncompleteTask, CompleteTask },
+  components: {
+    IncompleteTask,
+    CompleteTask,
+    Header,
+    TaskNote
+  },
   data() {
     return {
-      IncompleteTask: false,
-      tasks: [
-        {
-          id: 1,
-          text: "Doctors appointment",
-          day: "March 1st, 2021",
-          completeTask: false
-        },
-        {
-          id: 2,
-          text: "Doctors appointment",
-          day: "March 2nd, 2021",
-          completeTask: false
-        },
-        {
-          id: 3,
-          text: "Doctors appointment",
-          day: "March 3rd, 2021",
-          completeTask: false
-        },
-        {
-          id: Math.random(),
-          text: "Doctors appointment",
-          day: "March 3rd, 2021",
-          completeTask: false
-        },
-        {
-          id: Math.random(),
-          text: "Doctors appointment",
-          day: "March 3rd, 2021",
-          completeTask: true
-        },
-        {
-          id: Math.random(),
-          text: "Doctors appointment",
-          day: "March 3rd, 2021",
-          completeTask: false
-        },
-        {
-          id: Math.random(),
-          text: "Doctors appointment",
-          day: "March 3rd, 2021",
-          completeTask: false
-        },
-        {
-          id: Math.random(),
-          text: "Doctors appointment",
-          day: "March 3rd, 2021",
-          completeTask: false
-        }
-      ]
+      tasks: []
     };
   },
   computed: {
     incompleteTask() {
       return this.tasks.filter(task => !task.completeTask);
     },
-    completeTask() {
+    completedTask() {
       return this.tasks.filter(task => task.completeTask);
+    }
+  },
+  watch: {
+    tasks: {
+      deep: true,
+      handler(newValue) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(newValue));
+      }
     }
   },
   methods: {
@@ -103,26 +68,28 @@ export default {
       let month = date.toLocaleString("default", { month: "long" });
       let year = date.getFullYear();
       let day = date.getDate();
-
       let humanReadableDate = `${month} ${day}, ${year}`;
-
-      return this.tasks.unshift({
+      this.tasks.unshift({
         id: task.id,
         text: task.enteredValue,
         day: humanReadableDate,
         completeTask: false
       });
     },
-     scrollToTop() {
+    scrollToTop() {
       window.scrollTo(0, 0);
     }
+  },
+  created() {
+    this.tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
   }
 };
 </script>
 <style>
-/* #top{
+#top {
   scroll-behavior: smooth;
-} */
+  
+}
 .task .checked {
   background-color: orange;
   /* text-decoration: line-through solid orange; */
