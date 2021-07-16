@@ -16,7 +16,7 @@ const routes = [{ path: '/about', component: About, name: 'About' },
 { path: '/jobs/:id', component: JobDetails, name: 'JobDetails', props: true },
 { path: '/all-jobs', redirect: '/jobs' },
 { path: '/:catchAll(.*)', component: NotFound, name: 'notFound' },
-{ path: '/base', component: Base, name: 'Base' },
+// { path: '/base', component: Base, name: 'Base' },
 { path: '/incomplete-task', component: IncompleteTask, name: 'IncompletTask' },
 { path: '/complete-task', component: completeTask, name: 'completTask' },
 ];
